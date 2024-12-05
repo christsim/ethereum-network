@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+  op-geth:
+    image: ghcr.io/base-org/node:v0.10.3
+    container_name: op-geth
+    restart: always
+    user: "1000:1000" # Run as non-root user
+    security_opt:
+      - no-new-privileges:true
+    command: |
+        /app/geth
+        --ws
+        --ws.port=8556
+        --ws.addr=0.0.0.0
+        --ws.origins="*"
+        --ws.api=web3,debug,eth,net,engine
+        --http
+        --http.api=web3,debug,eth,net,engine
+        --http.port=8555
+        --http.addr=0.0.0.0
+        --http.vhosts="*"
+        --http.corsdomain="*"
+        --metrics
+        --metrics.addr=0.0.0.0
+        --metrics.port=6060
+        --authrpc.addr=0.0.0.0
+        --authrpc.jwtsecret=/opt/data/jwtsecret/jwtsecret
+        --authrpc.port=8557
+        --authrpc.vhosts="*"
+        --datadir=/opt/data/op-geth
+        --verbosity=3
+        --syncmode=snap
+        --gcmode=archive
+        --maxpeers=100
+        --rollup.disabletxpoolgossip=true
+        --rollup.sequencerhttp=https://mainnet-sequencer.base.org
+        --rollup.halt=major
+        --op-network=base-mainnet
+        --port="30303"
+    ports:
+      - "8555:8555" # HTTP
+      - "8556:8556" # WebSocket
+      - "6060:6060" # Metrics
+      - "8557:8557" # Auth RPC
+      - "30303:30303/tcp" # P2P TCP
+      - "30303:30303/udp" # P2P UDP
+    volumes:
+      - /opt/data/op-geth:/opt/data/op-geth # Persistent data
+      - /opt/data/jwtsecret:/opt/data/jwtsecret # Secrets volume
+    deploy:
+      resources:
+        limits:
+          memory: 40g
+          cpus: '15'
+        reservations:
+          memory: 29g
+          cpus: '10'
+    networks:
+      - geth-network
+
+networks:
+  geth-network:
+    name: geth-network
+    driver: bridge

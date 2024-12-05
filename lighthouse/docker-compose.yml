@@ -1,0 +1,45 @@
+version: '3.8'
+
+networks:
+  blockchain:
+    name: blockchain
+    driver: bridge
+
+services:
+  lighthouse-beacon:
+    image: sigp/lighthouse:v5.3.0
+    container_name: lighthouse-beacon
+    restart: always
+    user: "1000:1000"
+    security_opt:
+      - no-new-privileges:true
+    command: |
+      lighthouse
+      beacon
+      --http
+      --http-port=5052
+      --http-address=0.0.0.0
+      --http-allow-origin=*
+      --metrics
+      --metrics-address=0.0.0.0
+      --metrics-allow-origin=*
+      --metrics-port=5054
+      --datadir=/opt/data/lighthouse-beacon
+      --execution-jwt=/opt/data/jwtsecret/jwtsecret
+      --execution-endpoint=http://geth:8551
+      --checkpoint-sync-url=http://beaconstate.ethstaker.cc
+    ports:
+      - "5052:5052" # HTTP
+      - "9000:9000" # Peer-to-peer
+      - "5054:5054" # Prometheus Metrics
+    volumes:
+      - /opt/data/lighthouse-beacon:/opt/data/lighthouse-beacon/ # Persistent data
+      - /opt/data/jwtsecret:/opt/data/jwtsecret # JWT secret
+    networks:
+      - geth-network
+    restart: "no"
+
+networks:
+  geth-network:
+    name: geth-network
+    driver: bridge
