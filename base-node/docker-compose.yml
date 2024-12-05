@@ -3,22 +3,22 @@ version: '3.8'
 #      --l1=https://snowy-boldest-scion.quiknode.pro/7e5702fb3273417e538c4030e1d0d2530b1f6221/
 
 services:
-  op-node:
+  base-node:
     image: ghcr.io/base-org/node:v0.10.3
-    container_name: op-node
+    container_name: base-node
     restart: always
     user: "1000:1000" # Run as non-root user
     security_opt:
       - no-new-privileges:true
     command: |
-      /app/op-node
+      /app/base-node
       --log.level=info
       --l1=http://geth:8545/
       --l1.beacon=http://lighthouse-beacon:5052
       --l1.rpckind=debug_geth
       --l1.trustrpc=true
       --l2.jwt-secret=/opt/data/jwtsecret/jwtsecret
-      --l2=http://op-geth:8557
+      --l2=http://base-geth:8557
       --metrics.enabled=true
       --metrics.port=7300
       --metrics.addr=0.0.0.0
@@ -28,15 +28,15 @@ services:
       --p2p.listen.ip=0.0.0.0
       --p2p.listen.tcp=9222
       --p2p.listen.udp=9222
-      --p2p.discovery.path=/opt/data/op-node/opnode_discovery_db
-      --p2p.peerstore.path=/opt/data/op-node/opnode_peerstore_db
+      --p2p.discovery.path=/opt/data/base-node/opnode_discovery_db
+      --p2p.peerstore.path=/opt/data/base-node/opnode_peerstore_db
       --p2p.bootnodes=enr:-J24QNz9lbrKbN4iSmmjtnr7SjUMk4zB7f1krHZcTZx-JRKZd0kA2gjufUROD6T3sOWDVDnFJRvqBBo62zuF-hYCohOGAYiOoEyEgmlkgnY0gmlwhAPniryHb3BzdGFja4OFQgCJc2VjcDI1NmsxoQKNVFlCxh_B-716tTs-h1vMzZkSs1FTu_OYTNjgufplG4N0Y3CCJAaDdWRwgiQG,enr:-J24QH-f1wt99sfpHy4c0QJM-NfmsIfmlLAMMcgZCUEgKG_BBYFc6FwYgaMJMQN5dsRBJApIok0jFn-9CS842lGpLmqGAYiOoDRAgmlkgnY0gmlwhLhIgb2Hb3BzdGFja4OFQgCJc2VjcDI1NmsxoQJ9FTIv8B9myn1MWaC_2lJ-sMoeCDkusCsk4BYHjjCq04N0Y3CCJAaDdWRwgiQG,enr:-J24QDXyyxvQYsd0yfsN0cRr1lZ1N11zGTplMNlW4xNEc7LkPXh0NAJ9iSOVdRO95GPYAIc6xmyoCCG6_0JxdL3a0zaGAYiOoAjFgmlkgnY0gmlwhAPckbGHb3BzdGFja4OFQgCJc2VjcDI1NmsxoQJwoS7tzwxqXSyFL7g0JM-KWVbgvjfB8JA__T7yY_cYboN0Y3CCJAaDdWRwgiQG,enr:-J24QHmGyBwUZXIcsGYMaUqGGSl4CFdx9Tozu-vQCn5bHIQbR7On7dZbU61vYvfrJr30t0iahSqhc64J46MnUO2JvQaGAYiOoCKKgmlkgnY0gmlwhAPnCzSHb3BzdGFja4OFQgCJc2VjcDI1NmsxoQINc4fSijfbNIiGhcgvwjsjxVFJHUstK9L1T8OTKUjgloN0Y3CCJAaDdWRwgiQG,enr:-J24QG3ypT4xSu0gjb5PABCmVxZqBjVw9ca7pvsI8jl4KATYAnxBmfkaIuEqy9sKvDHKuNCsy57WwK9wTt2aQgcaDDyGAYiOoGAXgmlkgnY0gmlwhDbGmZaHb3BzdGFja4OFQgCJc2VjcDI1NmsxoQIeAK_--tcLEiu7HvoUlbV52MspE0uCocsx1f_rYvRenIN0Y3CCJAaDdWRwgiQG
       --rpc.addr=0.0.0.0
       --rpc.port=8558
-      --snapshotlog.file=/opt/data/op-node/op-node-snapshot-log
+      --snapshotlog.file=/opt/data/base-node/base-node-snapshot-log
       --verifier.l1-confs=4
       --rollup.load-protocol-versions=true
-      --safedb.path=/opt/data/op-node
+      --safedb.path=/opt/data/base-node
       --syncmode=execution-layer
     ports:
       - "8548:8548" # RPC
@@ -44,7 +44,7 @@ services:
       - "9222:9222/udp" # P2P UDP
       - "7300:7300" # Metrics
     volumes:
-      - /opt/data/op-node:/opt/data/op-node # Persistent data
+      - /opt/data/base-node:/opt/data/base-node # Persistent data
       - /opt/data/jwtsecret:/opt/data/jwtsecret # Secrets volume
     deploy:
       resources:

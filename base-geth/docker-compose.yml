@@ -1,9 +1,9 @@
 version: '3.8'
 
 services:
-  op-geth:
+  base-geth:
     image: ghcr.io/base-org/node:v0.10.3
-    container_name: op-geth
+    container_name: base-geth
     restart: always
     user: "1000:1000" # Run as non-root user
     security_opt:
@@ -28,7 +28,7 @@ services:
         --authrpc.jwtsecret=/opt/data/jwtsecret/jwtsecret
         --authrpc.port=8557
         --authrpc.vhosts="*"
-        --datadir=/opt/data/op-geth
+        --datadir=/opt/data/base-geth
         --verbosity=3
         --syncmode=snap
         --gcmode=archive
@@ -46,7 +46,7 @@ services:
       - "30303:30303/tcp" # P2P TCP
       - "30303:30303/udp" # P2P UDP
     volumes:
-      - /opt/data/op-geth:/opt/data/op-geth # Persistent data
+      - /opt/data/base-geth:/opt/data/base-geth # Persistent data
       - /opt/data/jwtsecret:/opt/data/jwtsecret # Secrets volume
     deploy:
       resources:
