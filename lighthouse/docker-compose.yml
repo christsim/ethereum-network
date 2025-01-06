@@ -4,6 +4,8 @@ networks:
   blockchain:
     name: blockchain
     driver: bridge
+    driver_opts:
+      com.docker.network.bridge.host_binding_ipv4: "127.0.0.1"
 
 services:
   lighthouse-beacon:
@@ -36,10 +38,6 @@ services:
       - /opt/data/lighthouse-beacon:/opt/data/lighthouse-beacon/ # Persistent data
       - /opt/data/jwtsecret:/opt/data/jwtsecret # JWT secret
     networks:
-      - geth-network
-    restart: "no"
+      - blockchain
 
-networks:
-  geth-network:
-    name: geth-network
-    driver: bridge
+#      --purge-db

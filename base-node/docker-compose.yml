@@ -1,10 +1,15 @@
 version: '3.8'
 
-#      --l1=https://snowy-boldest-scion.quiknode.pro/7e5702fb3273417e538c4030e1d0d2530b1f6221/
+networks:
+  blockchain:
+    name: blockchain
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.host_binding_ipv4: "127.0.0.1"
 
 services:
   base-node:
-    image: ghcr.io/base-org/node:v0.10.3
+    image: ghcr.io/base-org/node:v0.11.1
     container_name: base-node
     restart: always
     user: "1000:1000" # Run as non-root user
@@ -55,9 +60,4 @@ services:
           memory: 7.5g
           cpus: '2'
     networks:
-      - geth-network
-
-networks:
-  geth-network:
-    name: geth-network
-    driver: bridge
+      - blockchain

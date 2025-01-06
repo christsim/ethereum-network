@@ -1,9 +1,16 @@
 version: '3.8'
 
+networks:
+  blockchain:
+    name: blockchain
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.host_binding_ipv4: "127.0.0.1"
+
 services:
-  base-geth:
-    image: ghcr.io/base-org/node:v0.10.3
-    container_name: base-geth
+  op-geth:
+    image: ghcr.io/base-org/node:v0.11.1
+    container_name: op-geth
     restart: always
     user: "1000:1000" # Run as non-root user
     security_opt:
@@ -57,9 +64,4 @@ services:
           memory: 29g
           cpus: '10'
     networks:
-      - geth-network
-
-networks:
-  geth-network:
-    name: geth-network
-    driver: bridge
+      - blockchain
