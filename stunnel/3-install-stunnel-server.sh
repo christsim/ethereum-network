@@ -8,7 +8,7 @@ fi
 
 # Define variables
 HOSTNAME=$1
-STUNNEL_CONFIG="/etc/stunnel/stunnel-solana-rpc.conf"
+STUNNEL_CONFIG="/etc/stunnel/stunnel-ethereum-rpc.conf"
 SERVER_CERT_DIR="${HOSTNAME}_certs/server"
 
 # Check for hostname
