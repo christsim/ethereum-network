@@ -18,15 +18,15 @@ systemctl start tuned
 systemctl enable tuned
 
 # Create the tuned profile directory
-echo "Creating tuned profile for Solana validator..."
-mkdir -p /etc/tuned/solana-validator-performance
+echo "Creating tuned profile for Blockchain nodes..."
+mkdir -p /etc/tuned/blockchain-performance
 
-# Create the tuned.conf file with Solana-optimized settings
-cat <<EOL > /etc/tuned/solana-validator-performance/tuned.conf
-# Tuned profile optimized for Solana validator with throughput-performance as a base
+# Create the tuned.conf file with Blockchain node optimized settings
+cat <<EOL > /etc/tuned/blockchain-performance/tuned.conf
+# Tuned profile optimized for Blockchain nodes with throughput-performance as a base
 
 [main]
-summary=Optimized performance profile for Solana validator
+summary=Optimized performance profile for Blockchain nodes
 include=throughput-performance
 
 [cpu]
@@ -43,14 +43,14 @@ wakeup_granularity_ns=15000000       # Wake-up granularity
 # Maintains default throughput-performance disk settings
 
 [vm]
-# Virtual memory optimizations for high I/O and Solana-specific tuning
+# Virtual memory optimizations for high I/O and blockchain-node specific tuning
 swappiness=30                        # Moderate swappiness for balance between disk and memory
 dirty_ratio=40                       # Higher threshold for dirty pages before flush
 dirty_background_ratio=10            # Background dirty page flushing starts
 dirty_expire_centisecs=36000         # Time before dirty pages are eligible for writeback (in centisecs)
 dirty_writeback_centisecs=3000       # Dirty pages writeback frequency (in centisecs)
 dirtytime_expire_seconds=43200       # Expiration time for dirty pages (in seconds)
-max_map_count=1000000                # Supports high memory mappings for Solana's usage
+max_map_count=1000000                # Supports high memory mappings for Blockchain nodes's usage
 stat_interval=10                     # Reduces VM stat collection frequency for lower latency
 
 [sysctl]
@@ -71,9 +71,9 @@ net.core.wmem_default=134217728      # Default send buffer
 EOL
 
 # Activate the tuned profile
-echo "Activating the Solana validator tuned profile..."
-tuned-adm profile solana-validator-performance
+echo "Activating the Blockchain nodes tuned profile..."
+tuned-adm profile blockchain-performance
 
-echo "Tuned profile 'solana-validator-performance' has been successfully created and activated!"
+echo "Tuned profile 'blockchain-performance' has been successfully created and activated!"
 
 tuned-adm active

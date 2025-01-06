@@ -41,25 +41,88 @@ options = NO_SSLv3
 ciphers = HIGH:!aNULL:!SSLv2:!DH:!kEDH
 curve = secp384r1
 
-[solana-http]
+[geth-http]
 client = no
-accept = 0.0.0.0:18899
-connect = 127.0.0.1:8899
+accept = 0.0.0.0:18545
+connect = 127.0.0.1:8545
 cert = /etc/stunnel/server.pem
 key = /etc/stunnel/server.key
 CAfile = /etc/stunnel/ca.pem
 verify = 2
 
-[solana-ws]
+[geth-ws]
 client = no
-accept = 0.0.0.0:18900
-connect = 127.0.0.1:8900
+accept = 0.0.0.0:18546
+connect = 127.0.0.1:8546
 cert = /etc/stunnel/server.pem
 key = /etc/stunnel/server.key
 CAfile = /etc/stunnel/ca.pem
 verify = 2
 
-[prometheus]
+[geth-prometheus]
+client = no
+accept = 0.0.0.0:19090
+connect = 127.0.0.1:9090
+cert = /etc/stunnel/server.pem
+key = /etc/stunnel/server.key
+CAfile = /etc/stunnel/ca.pem
+verify = 2
+
+[base-geth-http]
+client = no
+accept = 0.0.0.0:18555
+connect = 127.0.0.1:8555
+cert = /etc/stunnel/server.pem
+key = /etc/stunnel/server.key
+CAfile = /etc/stunnel/ca.pem
+verify = 2
+
+[base-geth-ws]
+client = no
+accept = 0.0.0.0:18556
+connect = 127.0.0.1:8556
+cert = /etc/stunnel/server.pem
+key = /etc/stunnel/server.key
+CAfile = /etc/stunnel/ca.pem
+verify = 2
+
+[base-geth-auth-rpc]
+client = no
+accept = 0.0.0.0:18557
+connect = 127.0.0.1:8557
+cert = /etc/stunnel/server.pem
+key = /etc/stunnel/server.key
+CAfile = /etc/stunnel/ca.pem
+verify = 2
+
+[base-geth-prometheus]
+client = no
+accept = 0.0.0.0:16060
+connect = 127.0.0.1:6060
+cert = /etc/stunnel/server.pem
+key = /etc/stunnel/server.key
+CAfile = /etc/stunnel/ca.pem
+verify = 2
+
+[base-node-http]
+client = no
+accept = 0.0.0.0:18548
+connect = 127.0.0.1:8548
+cert = /etc/stunnel/server.pem
+key = /etc/stunnel/server.key
+CAfile = /etc/stunnel/ca.pem
+verify = 2
+
+[base-node-prometheus]
+client = no
+accept = 0.0.0.0:17300
+connect = 127.0.0.1:7300
+cert = /etc/stunnel/server.pem
+key = /etc/stunnel/server.key
+CAfile = /etc/stunnel/ca.pem
+verify = 2
+
+[nodeexporter-prometheus]
 client = no
 accept = 0.0.0.0:19100
 connect = 127.0.0.1:9100
