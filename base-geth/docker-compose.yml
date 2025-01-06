@@ -8,9 +8,9 @@ networks:
       com.docker.network.bridge.host_binding_ipv4: "127.0.0.1"
 
 services:
-  op-geth:
+  base-geth:
     image: ghcr.io/base-org/node:v0.11.1
-    container_name: op-geth
+    container_name: base-geth
     restart: always
     user: "1000:1000" # Run as non-root user
     security_opt:

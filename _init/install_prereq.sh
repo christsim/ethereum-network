@@ -10,4 +10,7 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 apt update && apt upgrade
-apt install docker-compose btop
+apt install docker-compose btop net-tools
+
+sudo groupadd docker
+sudo usermod -aG docker $USER
