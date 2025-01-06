@@ -1,16 +1,28 @@
 #!/bin/bash
 
-# Check if the version number is provided as a command-line argument
+# Function to fetch and list the last few versions
+list_versions() {
+    echo "Fetching the last few available Node Exporter versions..."
+    curl -s https://api.github.com/repos/prometheus/node_exporter/releases | 
+    grep '"tag_name":' | 
+    sed -E 's/.*"v([^"]+)".*/\1/' | 
+    head -n 5
+}
+
+# Check if a version is provided
 if [ -z "$1" ]; then
+    echo "No version specified."
+    echo "Here are the last few available versions:"
+    list_versions
     echo "Usage: $0 <version>"
     echo "Example: $0 1.7.0"
     exit 1
 fi
 
-# Set the version of Node Exporter from the first argument
+# Set the version of Node Exporter from the argument
 NODE_EXPORTER_VERSION="$1"
 
-# Detect the architecture
+# Detect the architecture or default to linux-amd64
 ARCHITECTURE=$(uname -m)
 case $ARCHITECTURE in
     x86_64)
@@ -26,8 +38,8 @@ case $ARCHITECTURE in
         ARCHITECTURE="linux-arm64"
         ;;
     *)
-        echo "Unsupported architecture: $ARCHITECTURE"
-        exit 1
+        echo "Unsupported architecture detected: $ARCHITECTURE. Defaulting to linux-amd64."
+        ARCHITECTURE="linux-amd64"
         ;;
 esac
 
