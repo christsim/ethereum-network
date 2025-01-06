@@ -16,7 +16,7 @@ services:
     security_opt:
       - no-new-privileges:true
     command: |
-      /app/base-node
+      /app/op-node
       --log.level=info
       --l1=http://geth:8545/
       --l1.beacon=http://lighthouse-beacon:5052
