@@ -4,6 +4,8 @@ networks:
   blockchain:
     name: blockchain
     driver: bridge
+    driver_opts:
+      com.docker.network.bridge.host_binding_ipv4: "127.0.0.1"
 
 services:
   geth:
@@ -50,7 +52,7 @@ services:
       - /opt/data/geth:/opt/data/geth # Persistent data
       - /opt/data/jwtsecret:/opt/data/jwtsecret # JWT secret
     networks:
-      - geth-network
+      - blockchain
     deploy:
       resources:
         limits:
@@ -58,8 +60,3 @@ services:
         reservations:
           memory: 20g
     restart: "no"
-
-networks:
-  geth-network:
-    name: geth-network
-    driver: bridge
