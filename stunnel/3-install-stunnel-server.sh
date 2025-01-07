@@ -130,6 +130,34 @@ cert = /etc/stunnel/server.pem
 key = /etc/stunnel/server.key
 CAfile = /etc/stunnel/ca.pem
 verify = 2
+
+[arbitrum-http]
+client = no
+accept = 0.0.0.0:18547
+connect = 127.0.0.1:8547
+cert = /etc/stunnel/server.pem
+key = /etc/stunnel/server.key
+CAfile = /etc/stunnel/ca.pem
+verify = 2
+
+[arbitrum-ws]
+client = no
+accept = 0.0.0.0:18549
+connect = 127.0.0.1:8549
+cert = /etc/stunnel/server.pem
+key = /etc/stunnel/server.key
+CAfile = /etc/stunnel/ca.pem
+verify = 2
+
+[arbitrum-prometheus]
+client = no
+accept = 0.0.0.0:16070
+connect = 127.0.0.1:6070
+cert = /etc/stunnel/server.pem
+key = /etc/stunnel/server.key
+CAfile = /etc/stunnel/ca.pem
+verify = 2
+
 EOF
 
 # Restart stunnel service

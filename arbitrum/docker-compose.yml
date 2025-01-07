@@ -1,0 +1,52 @@
+version: '3.8'
+
+networks:
+  blockchain:
+    name: blockchain
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.host_binding_ipv4: "127.0.0.1"
+
+services:
+  arbitrum:
+    image: offchainlabs/nitro-node:v3.3.0-5b5e179
+    container_name: arbitrum
+    restart: always
+    user: "1000:1000" # Run as non-root user
+    security_opt:
+      - no-new-privileges:true
+    command:
+    args:
+    - --parent-chain.connection.url=http://geth:8545
+    - --parent-chain.blob-client.beacon-url=http://lighthouse-beacon:5052
+    - --init.latest=pruned
+    - --init.download-path=/opt/data/arbitrum 
+    - --chain.id=42161
+    - --persistent.chain=/opt/data/arbitrum 
+    - --ws.port=8548
+    - --ws.addr=0.0.0.0
+    - --ws.origins=*
+    - --ws.api=admin,debug,web3,eth,txpool,personal,net,arb,arbdebug,arbtrace,arbvalidator
+    - --http.addr=0.0.0.0
+    - --http.port=8547
+    - --http.corsdomain=*
+    - --http.vhosts=*
+    - --http.api=admin,debug,web3,eth,txpool,personal,net,arb,arbdebug,arbtrace,arbvalidator
+    - --execution.caching.archive
+    ports:
+      - "8547:8547" # HTTP
+      - "8549:8549" # Websockets
+      - "6070:6070" # metrics
+    volumes:
+      - /opt/data/arbitrum:/opt/data/arbitrum # Persistent data
+      - /opt/data/jwtsecret:/opt/data/jwtsecret # Secrets volume
+    deploy:
+      resources:
+        limits:
+          memory: 33g
+          cpus: '9'
+        reservations:
+          memory: 32g
+          cpus: '8'
+    networks:
+      - blockchain
