@@ -106,8 +106,8 @@ verify = 2
 
 [base-node-http]
 client = no
-accept = 0.0.0.0:18548
-connect = 127.0.0.1:8548
+accept = 0.0.0.0:18558
+connect = 127.0.0.1:8558
 cert = /etc/stunnel/server.pem
 key = /etc/stunnel/server.key
 CAfile = /etc/stunnel/ca.pem

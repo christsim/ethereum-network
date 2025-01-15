@@ -44,7 +44,7 @@ services:
       --safedb.path=/opt/data/base-node
       --syncmode=execution-layer
     ports:
-      - "8548:8548" # RPC
+      - "8558:8558" # RPC
       - "9222:9222/tcp" # P2P TCP
       - "9222:9222/udp" # P2P UDP
       - "7300:7300" # Metrics
