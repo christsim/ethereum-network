@@ -16,7 +16,6 @@ services:
     security_opt:
       - no-new-privileges:true
     command:
-    args:
     - --parent-chain.connection.url=http://geth:8545
     - --parent-chain.blob-client.beacon-url=http://lighthouse-beacon:5052
     - --init.latest=pruned
