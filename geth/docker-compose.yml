@@ -9,7 +9,7 @@ networks:
 
 services:
   geth:
-    image: ethereum/client-go:v1.14.11
+    image: ethereum/client-go:v1.15.6
     container_name: geth
     restart: always
     user: "1000:1000" # Run as non-root user
