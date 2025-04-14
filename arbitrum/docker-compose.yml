@@ -9,7 +9,7 @@ networks:
 
 services:
   arbitrum:
-    image: offchain-labs/nitro-node:v3.3.2-9d70997
+    image: offchainlabs/nitro-node:v3.5.5-90ee45c
     container_name: arbitrum
     restart: always
     user: "1000:1000" # Run as non-root user
