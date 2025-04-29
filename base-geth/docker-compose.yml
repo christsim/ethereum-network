@@ -9,7 +9,7 @@ networks:
 
 services:
   base-geth:
-    image: ghcr.io/base/node-geth:v0.12.0
+    image: ghcr.io/base/node-geth:v0.12.3
     container_name: base-geth
     restart: always
     user: "1000:1000" # Run as non-root user
