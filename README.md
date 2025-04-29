@@ -22,4 +22,4 @@ Ensure your system meets the following prerequisites:
 - /dev/md1 (raided disk for example) mount onto /mnt/disk1
 - then we mount bind folder in those disks to /opt
 - for example /mnt/disk0/data /opt/data
-- but we can do it more complicated once there are more blockchain nodes using multiple disks
+- but we can do it more complicated once there are more blockchain nodes using multiple disks.
