@@ -9,7 +9,7 @@ networks:
 
 services:
   base-node:
-    image: ghcr.io/base-org/node:v0.11.1
+    image: ghcr.io/base/node:v0.12.3
     container_name: base-node
     restart: always
     user: "1000:1000" # Run as non-root user
