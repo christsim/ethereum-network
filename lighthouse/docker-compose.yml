@@ -9,7 +9,7 @@ networks:
 
 services:
   lighthouse-beacon:
-    image: sigp/lighthouse:v7.0.0
+    image: sigp/lighthouse:v7.0.1
     container_name: lighthouse-beacon
     restart: always
     user: "1000:1000"
